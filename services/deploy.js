@@ -8,7 +8,7 @@ const path = require('path');
 const shell = require('shelljs');
 const deployDir = './deply';
 
-export default async (event) => {
+module.exports = async (event) => {
     const branch  = event.payload.ref;
     const project = event.payload.repository.name;
     const message = event.payload.head_commit.message || '';
