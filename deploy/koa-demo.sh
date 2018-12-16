@@ -1,8 +1,8 @@
 #!/bin/bash
 
-WEB_PATH = '/data/webapp/koa-demo'
-WEB_USER = 'root'
-WEB_USERGROUP = 'root'
+WEB_PATH='/data/webapp/koa-demo'
+WEB_USER='root'
+WEB_USERGROUP='root'
 
 echo 'start deployment'
 cd $WEB_PATH
