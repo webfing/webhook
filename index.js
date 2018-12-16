@@ -1,32 +1,25 @@
 const http = require('http');
 const createHandler = require('github-webhook-handler');
+const deployHanlder = require('./services/deploy');
+const { argv } = require('yargs');
+
+// webhook config
 const handler = createHandler({
   path: '/webhook',
-  secret: 'Oba2634249',
+  secret: argv.secret,
 });
 
 // server
 http.createServer((req, res) => {
-  console.log('runing');
   handler(req, res, (err) => {
-    if (err) {
-	console.log('king err', err);
-    }
     res.statusCode = 200;
-    res.end('no such location');
+    res.end('no such page');
   });
-}).listen(7070);
+}).listen(argv.port || 7070, () => {
+  console.log(`Deply server Run! port at ${argv.port}`, Date.now());
+});
 
 // handler
-handler.on('error', (err) => {
-  console.error('Error', err.message);
-});
-
-handler.on('push', (event) => {
-  console.log(event);
-  const { payload } = event;
-  console.log('Received an issue event for %s action=%s: #%d %s',
-    payload.repository.name,
-    payload.action);
-});
+handler.on('error', err => console.error('Sre Error', err.message, Date.now()));
+handler.on('push', event => deployHanlder(event));
 
