@@ -14,7 +14,7 @@ module.exports = async (event) => {
     const message = event.payload.head_commit.message || '';
     const deployPath = path.join(deployDir, `${project}.sh`);
     const exists = await fs.pathExists(deployPath);
-    if (exists && message.indexOf('feat(delply)') === 0) {
+    if (exists && message.indexOf('feat(delpoy)') === 0) {
         console.log(`收到项目${project}-${branch}分支的push事件，要求服务器部署`, Date.now());
         shell.exec(`sh ${deployPath}`, (code, stdout, stderr) => {
             console.log('Exit code:', code, Date.now());
