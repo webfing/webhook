@@ -2,14 +2,14 @@ const http = require('http');
 const createHandler = require('github-webhook-handler');
 const deployHanlder = require('./services/deploy');
 const { argv } = require('yargs');
-const { PORT, SECRET } = argv;
+const { port, secret } = argv;
 
-console.log(PORT, SECRET);
+console.log(port, secret);
 
 // webhook config
 const handler = createHandler({
   path: '/webhook',
-  secret: SECRET,
+  secret: secret,
 });
 
 // server
@@ -18,8 +18,8 @@ http.createServer((req, res) => {
     res.statusCode = 200;
     res.end('no such page');
   });
-}).listen(PORT || 7070, () => {
-  console.log(`Deply server Run! port at ${PORT}`, Date.now());
+}).listen(port || 7070, () => {
+  console.log(`Deply server Run! port at ${port}`, Date.now());
 });
 
 // handler
