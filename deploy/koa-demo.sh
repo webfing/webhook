@@ -1,4 +1,4 @@
-#!/binbash
+#!/bin/bash
 
 WEB_PATH = '/data/webapp/koa-demo'
 WEB_USER = 'root'
