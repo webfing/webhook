@@ -6,14 +6,14 @@
 const fs = require('fs-extra');
 const path = require('path');
 const shell = require('shelljs');
-const deployDir = '../deply';
+const deployDir = '../deploy';
 
 module.exports = async (event) => {
     const branch  = event.payload.ref;
     const project = event.payload.repository.name;
     const message = event.payload.head_commit.message || '';
     const deployPath = path.join(__dirname, deployDir, `${project}.sh`);
-    const exists = fs.pathExistsSync(deployPath);
+    const exists = await fs.pathExistsSync(deployPath);
     console.log('recive push message: ', message, deployPath, exists);
     if (exists && message.indexOf('feat(delpoy)') === 0) {
         console.log(`收到项目${project}-${branch}分支的push事件，要求服务器部署`, Date.now());
